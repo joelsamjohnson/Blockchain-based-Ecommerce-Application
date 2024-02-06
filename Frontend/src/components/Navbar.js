@@ -1,69 +1,74 @@
-import React, { Component } from 'react'
-import {Link} from "react-router-dom";
+import React from 'react';
+import { Link, useLocation } from "react-router-dom";
 import styled from 'styled-components';
-import {ButtonContainer} from './Button';
+import { ButtonContainer } from './Button';
 
-//1.15.00 de kaldım
-export default class Navbar extends Component{
+const Navbar = ({ onLogout }) => {
+    const location = useLocation();
 
-    render(){
-        return (
-           <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5">
-               <Link to = '/'>
-               <i class="fas fa-shopping-bag fa-2x" aria-hidden="true"></i></Link>
-               <div>
-                    <Link to = "/" className="nav-link">
-                        <h1 style={{fontSize: 30, fontFamily: "Georgia, serif"}}>Trend-Warehouse</h1>
+    // Check if the current page is the login page
+    const isLoginPage = location.pathname === '/login';
+    const handleLogoutClick = () => {
+        onLogout(); // Call the logout function passed as a prop
+    };
+
+    return (
+        <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5">
+            <Link to='/'>
+                <i className="fas fa-shopping-bag fa-2x" aria-hidden="true"></i>
+            </Link>
+            <div>
+                <Link to="/" className="nav-link">
+                    <h1 style={{ fontSize: 30, fontFamily: "Georgia, serif" }}>Trend-Warehouse</h1>
+                </Link>
+            </div>
+
+            {/* Render the rest of the navbar only if it's not the login page */}
+            {!isLoginPage && (
+                <div className='ml-auto'>
+                    <Link to='/CartDetails'>
+                        <ButtonContainer>
+                            <span className="mr-2" style={{ color: "white", fontFamily: "Georgia, serif", fontSize: 18 }}>
+                                <i style={{ marginRight: 10, fontSize: 20 }} className="fas fa-cart-plus" />
+                                My cart
+                            </span>
+                        </ButtonContainer>
                     </Link>
-               </div>
-               <div className='ml-auto'>
-               <Link to='/CartDetails'>
-              
-                  <ButtonContainer>
-                    <span className="mr-2" style={{color: "white",fontFamily:"Georgia, serif",fontSize:18}}>
-                    <i style={{marginRight: 10,fontSize: 20}} className="fas fa-cart-plus" />
-                       My cart
-                    </span>
-                     
-                   </ButtonContainer>
+                    <Link to='/UserProfile'>
+                        <ButtonContainer>
+                            <span className="mr-2" style={{ color: "white", fontFamily: "Georgia, serif", fontSize: 18 }}>
+                                <i style={{ marginRight: 10, fontSize: 20 }} className="fas fa-user" />
+                                User Profile
+                            </span>
+                        </ButtonContainer>
+                    </Link>
+                    <Link to='/AddProd'>
+                        <ButtonContainer>
+                            <span className="mr-2" style={{ color: "white", fontFamily: "Georgia, serif", fontSize: 18 }}>
+                                <i style={{ marginRight: 10, fontSize: 20 }} className="fas fa-user" />
+                                Add Product
+                            </span>
+                        </ButtonContainer>
+                    </Link>
+                    <ButtonContainer onClick={handleLogoutClick}>
+                        <span className="mr-2" style={{ color: "white", fontFamily: "Georgia, serif", fontSize: 18 }}>
+                            <i style={{ marginRight: 10, fontSize: 20 }} className="fas fa-sign-out-alt" />
+                            Logout
+                        </span>
+                    </ButtonContainer>
+                </div>
+            )}
+        </NavWrapper>
+    );
+};
 
-               </Link>
-               <Link to='/UserProfile'>
-                   <ButtonContainer>
-                    <span className="mr-2" style={{color: "white",fontFamily: "Georgia, serif",fontSize:18}}>
-                    <i style={{marginRight: 10,fontSize: 20}} className="fas fa-user" />
-                       User Profile
-                    </span>
-                     
-                   </ButtonContainer>
-
-               </Link>
-              
-               <Link to='/AddProd'>
-                   <ButtonContainer>
-                    <span className="mr-2" style={{color: "white",fontFamily: "Georgia, serif",fontSize:18}}>
-                    <i style={{marginRight: 10,fontSize: 20}} className="fas fa-user" />
-                       Add Product
-                    </span>
-                     
-                   </ButtonContainer>
-
-               </Link>
-              
-               </div>
-
-               
-
-           </NavWrapper>
-        )
-    }
-}
 const NavWrapper = styled.nav`
-background: var(--mainBlue);
-.nav-link{
-    color: var(--mainWhite) !important;
-    font-size: 1.3rem;
-    text-transform: capitalize;
-    
-}
+    background: var(--mainBlue);
+    .nav-link {
+        color: var(--mainWhite) !important;
+        font-size: 1.3rem;
+        text-transform: capitalize;
+    }
 `;
+
+export default Navbar;

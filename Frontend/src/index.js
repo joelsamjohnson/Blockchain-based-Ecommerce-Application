@@ -14,9 +14,7 @@ function getLibrary(provider) {
 ReactDOM.render(
 <Web3ReactProvider getLibrary={getLibrary}>
     
-        <Router>
-            <App />
-        </Router>
+        <App />
     
 </Web3ReactProvider>, document.getElementById('root'));
 

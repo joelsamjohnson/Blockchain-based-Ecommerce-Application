@@ -1,41 +1,61 @@
-import React, {Component} from 'react';
-import {Switch, Route} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css' ;
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./components/Navbar";
 import Default from "./components/Default";
 import ProductView from './components/ProductView';
+import Register from './components/Register';
 import AddProd from './components/AddProd';
 import DeleteProd from './components/DeleteProd';
 import UpdateProd from './components/UpdateProd';
 import CartDetails from './components/CartDetails';
 import UserProfile from './components/UserProfile';
-import PlaceOrder from './components/PlaceOrder' 
+import PlaceOrder from './components/PlaceOrder';
 import PaymentScreen from './components/PaymentScreen';
 import NFTDetails from './components/NFTDetails';
+import Login from './components/Login';
 
-export default class App extends Component {
-  render(){
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('access_token') ? true : false);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('access_token') ? true : false;
+    console.log("isLoggedIn useEffect:", loggedIn); // Log current login status
+    setIsLoggedIn(loggedIn);
+  }, []); 
+
+  const handleLogin = (success) => {
+    console.log("Login successful:", success); 
+    setIsLoggedIn(success);
+  };
+
+  const onLogout = () => {
+    localStorage.removeItem('access_token'); // Clear the token from localStorage
+    console.log('User logged out');
+    setIsLoggedIn(false); // Update the logged-in state
+};
   return (
-    <React.Fragment>
-      <Navbar/>
-      <Switch>
-        <Route  exact path="/" component={ProductView} />
-        <Route path="/ProductView" component={ProductView}/>   
-        <Route path="/AddProd" component={AddProd}/>
-        <Route path="/DeleteProd" component={DeleteProd}/>
-        <Route path="/UpdateProd" component={UpdateProd}/>
-        <Route path="/CartDetails" component={CartDetails}/>
-        <Route path="/UserProfile" component={UserProfile}/>
-        <Route path="/PlaceOrder" component={PlaceOrder}/>
-        <Route path="/PaymentScreen" component={PaymentScreen}/>
-        <Route path="/NFTDetails" component={NFTDetails}/>
+    <Router>
+      <React.Fragment>
+        <Navbar onLogout={onLogout} />
+        <Routes>
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/" element={isLoggedIn ? <ProductView /> : <Navigate to="/login" replace />} />
+          <Route path="/AddProd" element={isLoggedIn ? <AddProd /> : <Navigate to="/login" replace />} />
+          <Route path="/DeleteProd" element={isLoggedIn ? <DeleteProd /> : <Navigate to="/login" replace />} />
+          <Route path="/UpdateProd" element={isLoggedIn ? <UpdateProd /> : <Navigate to="/login" replace />} />
+          <Route path="/CartDetails" element={isLoggedIn ? <CartDetails /> : <Navigate to="/login" replace />} />
+          <Route path="/UserProfile" element={isLoggedIn ? <UserProfile /> : <Navigate to="/login" replace />} />
+          <Route path="/PlaceOrder" element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" replace />} />
+          <Route path="/PaymentScreen" element={isLoggedIn ? <PaymentScreen /> : <Navigate to="/login" replace />} />
+          <Route path="/NFTDetails" element={isLoggedIn ? <NFTDetails /> : <Navigate to="/login" replace />} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="*" element={<Default />} />
+        </Routes>
+      </React.Fragment>
+    </Router>
+  );
+};
 
-        <Route component={Default}/>
-      </Switch>
-
-    </React.Fragment>
-  )
-  }
-}
-
+export default App;

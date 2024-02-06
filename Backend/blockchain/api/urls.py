@@ -22,6 +22,8 @@ urlpatterns = [
     path('order/<int:id>/cancel/',views.cancel_order),
     path('token/<int:uid>/<str:id>/',views.pinata_file_upload),
     path('user/<int:id>/',views.user_detail),
+    path('login/', views.login_view),
+    path('register/', views.RegisterView.as_view()),
     path('nft/<int:id>/',views.valid_nft),
     path('nft/<int:tid>/<str:uname>/<str:id>/update/',views.update_nft_detail),
     path('warranty/<int:tid>/',views.update_warranty),

@@ -1,23 +1,24 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Title from './Title';
 import Divider from "@material-ui/core/Divider";
 
 const PlaceOrder = () => {
-    let history = useHistory();
+    const navigate = useNavigate();
+    const userId = localStorage.getItem('user_id');
+
     
     const [Order, setOrder] = useState([])
     const orderDetails = async () => {
-        const result = await axios.get(`http://127.0.0.1:8000/api/order/1/`);
+        const result = await axios.get(`http://127.0.0.1:8000/api/order/${userId}/`);
         console.log(result.data)
         setOrder(result.data)
     }
     const clearOrder = async () => {
-        await axios.delete(`http://127.0.0.1:8000/api/order/1/cancel/`)
-        history.push("./CartDetails");     
+        await axios.delete(`http://127.0.0.1:8000/api/order/${userId}/cancel/`)
+        navigate("./CartDetails");     
     }
     useEffect(() => {
         

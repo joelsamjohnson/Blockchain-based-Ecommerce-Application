@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Web3 from 'web3';
 import contractABI from "../Contract.json";
 import Modal from "react-bootstrap/Modal";
@@ -14,7 +14,7 @@ const NFTDetails = (props) => {
   const [username, setUsername] = useState(null)
   const [acc, setAcc] = useState(null)
   const [response,setResponse] = useState([])
-  const history = useHistory();
+  const navigate = useNavigate();
   const [trans,settrans]=useState(false);
   const [pro,setPro]=useState(true);
   const date1=new Date(props.location.state.expiry_date);
@@ -33,10 +33,11 @@ const NFTDetails = (props) => {
   }
   
  async function transferHistory(){
+  if (window.ethereum) {
     window.web3 = new Web3(window.ethereum);
     const web3 = new Web3(window.ethereum);
     const block = await web3.eth.getBlockNumber();
-    const contractAddress = "0x74EE8f104FCABE391C8d9d07A14b7bc1A650bf54"
+    const contractAddress = "0xb39De1ab9E18bF003A4d927F27eb5f2F674E37A5"
     const contractInstance = new web3.eth.Contract(contractABI,contractAddress);
     contractInstance.getPastEvents('Transfer', {
                   // filter: {from:'0xbf6f03450452271073877Bb4A36A5c4ED6244957' },
@@ -49,6 +50,10 @@ const NFTDetails = (props) => {
             setResponse(events)
         }
     })
+  } else {
+    console.error("Web3 provider not available");
+}
+    
    
   }
   
@@ -149,7 +154,7 @@ const NFTDetails = (props) => {
   }).then(response => {
       alert('Surprise !! Your Warranty duration is extended !!')
       console.log(response.data);
-      history.push("./UserProfile");
+      navigate("/UserProfile");
   })
 
   }
@@ -161,7 +166,7 @@ const NFTDetails = (props) => {
   }).then(response => {
      
       console.log(response.data);
-      history.push("./UserProfile");
+      navigate("/UserProfile");
   })
 
   }
@@ -176,7 +181,7 @@ const NFTDetails = (props) => {
   }).then(response => {
       alert('Transfer Completed!!')
       console.log(response.data);
-      history.push("./UserProfile");
+      navigate("/UserProfile");
   })
 
  }

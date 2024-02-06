@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6c239b04-51f3-42c0-a0bc-267e4669fcc2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/blockchain/user/backends.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/blockchain/user/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/blockchain/user/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/api/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/blockchain/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/blockchain/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/home/forms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/home/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/product/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/product/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/product/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/product/serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/user/serializer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/blockchain/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/blockchain/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/AddProd.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/AddProd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/CartDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/CartDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Default.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Default.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/DeleteProd.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/DeleteProd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/NFTDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/NFTDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/PaymentScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/PaymentScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/PlaceOrder.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/PlaceOrder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/ProductView.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/ProductView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/UpdateProd.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/UpdateProd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/components/UserProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/components/UserProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/src/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2WbTYt1LMU7LQktjpQ7mx8C0age" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "full.screen.before.presentation.mode": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/saraj/PycharmProjects/Blockchain-based-Ecommerce-Application",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6c239b04-51f3-42c0-a0bc-267e4669fcc2" name="Changes" comment="" />
+      <created>1697000330645</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1697000330645</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sol" />
+  </component>
+</project>

@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import { useHistory} from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 
-const UpdateProd = (props) => {
-    let history = useHistory();
+const UpdateProd = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { id: productId, r_id: rId } = location.state;
 
     const [image, setImage] = useState(null)
     const [name, setName] = useState(null)
@@ -12,7 +14,7 @@ const UpdateProd = (props) => {
     const [warranty_period, setwarranty_period] = useState(null)
 
    let loadProducts = async () => {
-    const result = await axios.get(`http://127.0.0.1:8000/api/product/${props.location.state.id}/`);
+    const result = await axios.get(`http://127.0.0.1:8000/api/product/${productId}/`);
     
     console.log(result.data.name);
     setImage(result.data.image);
@@ -36,11 +38,11 @@ const UpdateProd = (props) => {
 
         await axios({
             method: 'PUT',
-            url: `http://localhost:8000/api/product/${props.location.state.r_id}/${props.location.state.id}/update/`,
+            url: `http://localhost:8000/api/product/${rId}/${productId}/update/`,
             data: formField
         }).then(response => {
             console.log(response.data);
-            history.push("/");
+            navigate("/");
         })
 
     } 

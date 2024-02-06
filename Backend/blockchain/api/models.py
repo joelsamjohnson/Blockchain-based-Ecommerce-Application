@@ -1,7 +1,9 @@
 from django.db import models
 
+
 def get_product_image_filepath(self, filename):
     return 'product_images/' + str(self.pk) + '/product_image.png'
+
 
 class Item(models.Model):
     name = models.CharField(max_length=60, null=True)
@@ -14,3 +16,10 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        is_new = self._state.adding
+        super().save(*args, **kwargs)
+        if is_new and self.image:
+            self.image.save(self.image.name, self.image.file, save=False)
+            super().save()

@@ -1,63 +1,65 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Title from './Title';
 import Divider from "@material-ui/core/Divider";
 
 function CartDetails(props) {
-    let history = useHistory();
+    const navigate = useNavigate();
     const [Product, setProduct] = useState([])
     const [Total, setTotal] = useState([])
+    const userId = localStorage.getItem('user_id');
+
 
     const addOrder = async () => {
         await axios({
             method: 'post',
-            url:`http://127.0.0.1:8000/api/order/1/add/`,
+            url:`http://127.0.0.1:8000/api/order/${userId}/add/`,
         
           }).then(response=>{
             
             console.log(response.data);
-            history.push("./PlaceOrder");
+            navigate("/PlaceOrder");
           })
     }
     const fetchProduct = async () => {
-        const result = await axios.get(`http://127.0.0.1:8000/api/cart/1/`);
+        const result = await axios.get(`http://127.0.0.1:8000/api/cart/${userId}/`);
         console.log(result.data)
         setProduct(result.data)
     }
     
     const totalProduct = async () => {
-        const result1 = await axios.get(`http://127.0.0.1:8000/api/cart/1/total/`);
+        const result1 = await axios.get(`http://127.0.0.1:8000/api/cart/${userId}/total/`);
         console.log(result1.data)
         setTotal(result1.data)
     }
     const deleteItem = async (id) => {
-        await axios.delete(`http://127.0.0.1:8000/api/cart/1/${id}/delete/`)
-        history.go(0);
+        await axios.delete(`http://127.0.0.1:8000/api/cart/${userId}/${id}/delete/`)
+        navigate(0);
     }
     const clearCart = async (id) => {
-        await axios.delete(`http://127.0.0.1:8000/api/cart/1/clear/`)
-        history.go(0);
+        await axios.delete(`http://127.0.0.1:8000/api/cart/${userId}/clear/`)
+        navigate(0);
     }
       
     const incCart = async (id) => {
         await axios({
             method: 'PUT',
-            url: `http://127.0.0.1:8000/api/cart/1/${id}/`,
+            url: `http://127.0.0.1:8000/api/cart/${userId}/${id}/`,
             
         }).then(response => {
             console.log(response.data);
-            history.go(0);
+            navigate(0);
         })
     }
     const decCart = async (id) => {
         await axios({
             method: 'PUT',
-            url: `http://127.0.0.1:8000/api/cart/1/${id}/dec/`,
+            url: `http://127.0.0.1:8000/api/cart/${userId}/${id}/dec/`,
             
         }).then(response => {
             console.log(response.data);
-            history.go(0);
+            navigate(0);
         })
     }
 

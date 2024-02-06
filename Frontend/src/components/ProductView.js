@@ -1,29 +1,30 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function ProductView() {
     const [Products, setProducts] = useState([])
+    const userId = localStorage.getItem('user_id');
 
-    let history = useHistory();
+    const navigate= useNavigate();
     const fetchProducts = async () => {
         const result = await axios.get('http://localhost:8000/api/product/');
 
         console.log(result.data)
-        setProducts(result.data)
+        setProducts(result.data)    
     }
     
     
     const addCart = async (id) => {
+        
         await axios({
             method: 'post',
-            url:`http://127.0.0.1:8000/api/cart/1/${id}/add/`,
+            url:`http://127.0.0.1:8000/api/cart/${userId}/${id}/add/`,
         
           }).then(response=>{
             console.log(response.data);
-            history.push('/')
+            navigate('/')
           })
     }
       
@@ -39,14 +40,11 @@ function ProductView() {
             {
                 Products.map((Product, index) => (
                    
-                    <div class="col-md-3">
+                    <div class="col-md-3" key={Product.id}>
                         <div class="card" style={{width: 260,marginTop:20,marginBottom:20}}>
-                        <Link class="embed-responsive embed-responsive-4by3" to={{
-                        pathname: '/DeleteProd',
-                        state: {id: Product.id,r_id:Product.user_id}}}>
-                        
-                        <img src={'http://127.0.0.1:8000' + Product.image}  class="card-img-top embed-responsive-item" alt="Product"/>
-                        </Link>
+                            <Link class="embed-responsive embed-responsive-4by3" to="/DeleteProd" state={{ id: Product.id,r_id:Product.user_id}}>
+                                <img src={'http://127.0.0.1:8000' + Product.image}  class="card-img-top embed-responsive-item" alt="Product"/>
+                            </Link>
                             
                         <div class="card-body">
                             <h5 style={{fontFamily:"arial"}} class="card-title">{Product.name}</h5>

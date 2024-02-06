@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AddProd = () => {
 
-    let history = useHistory();
+    const navigate = useNavigate();
     const [image, setImage] = useState(null)
     const [name, setName] = useState(null)
     const [price, setPrice] = useState(null)
@@ -12,25 +12,26 @@ const AddProd = () => {
     const [warranty_period, setWarranty_period] = useState(null)
 
     const addNewProduct = async () => {
-        let formField = new FormData()
-        formField.append('name',name)
-        formField.append('price',price)
-        formField.append('description',description)
-        formField.append('warranty_period',warranty_period)
-        console.log(formField.getAll('name'));
-        if(image !== null) {
-          formField.append('image', image)
-        }
-
-        await axios({
-          method: 'post',
-          url:'http://localhost:8000/api/product/2/add/',
-          data: formField
-        }).then(response=>{
+      let formField = new FormData();
+      if (name) formField.append('name', name);
+      if (price) formField.append('price', price);
+      if (description) formField.append('description', description);
+      if (warranty_period) formField.append('warranty_period', warranty_period);
+      if (image) formField.append('image', image);
+  
+      try {
+          const response = await axios({
+              method: 'post',
+              url: 'http://localhost:8000/api/product/2/add/',
+              data: formField
+          });
           console.log(response.data);
-          history.push('/')
-        })
-    }
+          navigate('/');
+      } catch (error) {
+          console.error('Error:', error.response ? error.response.data : error.message);
+      }
+  }
+  
    
     return (
         <div className="container">
@@ -85,7 +86,8 @@ const AddProd = () => {
                       onChange={(e) => setDescription(e.target.value)}
                     />
                   </div>
-                  <button style={{fontFamily: "arial",fontWeight:500}} className="btn btn-primary btn-block" onClick={addNewProduct}>Add Product</button>
+                  <button style={{fontFamily: "arial", fontWeight:500}} className="btn btn-primary btn-block" type="button" onClick={addNewProduct}>Add Product</button>
+
               
                 </div>
               </div>

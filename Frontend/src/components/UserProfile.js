@@ -12,17 +12,33 @@ const UserProfile = () => {
     const [NFTd, setNft] = useState([]);
 
     const fetchUserDetails = async () => {
-        const result = await axios.get('http://127.0.0.1:8000/api/user/1/');
-
-        console.log(result.data)
-        setUser(result.data)
+        try{
+          const userId = localStorage.getItem('user_id');
+          if (!userId) {
+            console.error("User ID is not available");
+            return;
+          }
+          const userResponse = await axios.get(`http://127.0.0.1:8000/api/user/${userId}/`);
+          setUser(userResponse.data);
+          console.log(userResponse.data)
+        }catch (error) {
+          console.error("Error fetching user details")
+        }
     }
 
     const fetchNFTDetails = async () => {
-        const result = await axios.get('http://127.0.0.1:8000/api/nft/1/');
-
-        console.log(result.data)
-        setNft(result.data)
+      try{
+        const userId = localStorage.getItem('user_id');
+        if (!userId) {
+          console.error("User ID is not available");
+          return;
+        }
+        const userResponse = await axios.get(`http://127.0.0.1:8000/api/nft/${userId}/`);
+        setNft(userResponse.data)
+        console.log(userResponse)
+      }catch (error) {
+        console.error("Error fetching NFT details")
+      }
     }
     useEffect(() => {
         fetchUserDetails();

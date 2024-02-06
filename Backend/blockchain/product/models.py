@@ -1,5 +1,6 @@
 from django.db import models
-from user.models import User,Product,Order_Items,Payment_Details,Order_Details
+from user.models import User, Product, Order_Items, Payment_Details, Order_Details
+
 
 class Cart(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -11,8 +12,9 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.user_id)
 
+
 class Shipping_Address(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,default=0)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
@@ -21,6 +23,7 @@ class Shipping_Address(models.Model):
 
     def __str__(self):
         return str(self.user_id)
+
 
 class Track_Repairs(models.Model):
     order_id = models.ForeignKey(Order_Items, on_delete=models.CASCADE)
@@ -31,13 +34,15 @@ class Track_Repairs(models.Model):
     def __str__(self):
         return self.order_id
 
+
 class NFT_Details(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE,default=0)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,default=0)
-    token_url = models.CharField(max_length=200,default='')
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, default=0)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    token_url = models.CharField(max_length=200, default='')
     expiry_date = models.DateTimeField(default='')
-    token_id = models.IntegerField(unique=True,default=0)
-    acc_address = models.CharField(max_length=300,default='')
+    token_id = models.IntegerField(unique=True, default=0)
+    acc_address = models.CharField(max_length=300, default='')
     redeem = models.BooleanField(default=True)
+
     def _str_(self):
         return str(self.token_id)
