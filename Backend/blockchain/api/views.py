@@ -213,17 +213,14 @@ def update_quant_and_total(request, uid, pid):
             dict1 = {}
             cart1 = Cart.objects.get(id=i['id'])
             product = Product.objects.get(id=i['product_id'])
-            print("joyal",i['quantity'],"joyal")
             dict1['quantity'] = i['quantity'] + 1
-            print(dict1['quantity'] )
             dict1['total_amount'] = i['total_amount'] + product.price
             ls.append(dict1)
-    data = request.data.copy()
-    data['user_id'] = uid
-    data['product_id'] = pid
-    data['quantity'] = ls[0]['quantity']
-    data['total_amount'] = ls[0]['total_amount']
-    serializer = CartSerializer(cart1, data=data)
+    request.data['user_id'] = uid
+    request.data['product_id'] = pid
+    request.data['quantity'] = ls[0]['quantity']
+    request.data['total_amount'] = ls[0]['total_amount']
+    serializer = CartSerializer(cart1, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
@@ -296,7 +293,6 @@ def AddOrder(request, id):
         request.data['user_id'] = ls[i]['user_id']
         request.data['product_id'] = ls[i]['product_id']
         request.data['quantity'] = ls[i]['quantity']
-        print(request.data)
         serializer = Order_ItemsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

@@ -24,7 +24,7 @@ function ProductView() {
         
           }).then(response=>{
             console.log(response.data);
-            navigate('/CartDetails')
+            navigate('/ProductView')
           })
     }
       
