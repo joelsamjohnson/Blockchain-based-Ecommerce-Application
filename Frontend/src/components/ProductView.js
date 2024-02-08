@@ -24,7 +24,7 @@ function ProductView() {
         
           }).then(response=>{
             console.log(response.data);
-            navigate('/')
+            navigate('/CartDetails')
           })
     }
       
@@ -50,7 +50,7 @@ function ProductView() {
                             <h5 style={{fontFamily:"arial"}} class="card-title">{Product.name}</h5>
                             <h6 style={{fontFamily:"arial"}} class="card-subtitle mb-2 text-muted">Price: Rs. {Product.price}</h6>
                             <p style={{fontFamily:"arial"}} class="card-text">Click on image to see details</p>
-                            <button style={{fontFamily:"arial"}} variant="outlined"  className="btn btn-outline-primary mr-2" onClick={() => addCart(Product.id)}>
+                            <button type="button" style={{fontFamily:"arial"}} variant="outlined"  className="btn btn-outline-primary mr-2" onClick={() => addCart(Product.id)}>
                                 <i class="fas fa-cart-plus"></i> Add</button>
                                 
                             <Link to={{pathname: '/CartDetails'}}>

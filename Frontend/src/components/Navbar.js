@@ -5,26 +5,28 @@ import { ButtonContainer } from './Button';
 
 const Navbar = ({ onLogout }) => {
     const location = useLocation();
+    const userId = localStorage.getItem('user_id');
 
     // Check if the current page is the login page
     const isLoginPage = location.pathname === '/login';
+    const isWelcomePage = location.pathname === '/';
     const handleLogoutClick = () => {
         onLogout(); // Call the logout function passed as a prop
     };
 
     return (
         <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5">
-            <Link to='/'>
+            <Link to='/ProductView'>
                 <i className="fas fa-shopping-bag fa-2x" aria-hidden="true"></i>
             </Link>
             <div>
-                <Link to="/" className="nav-link">
+                <Link to="/ProductView" className="nav-link">
                     <h1 style={{ fontSize: 30, fontFamily: "Georgia, serif" }}>Trend-Warehouse</h1>
                 </Link>
             </div>
 
             {/* Render the rest of the navbar only if it's not the login page */}
-            {!isLoginPage && (
+            {!isLoginPage && !isWelcomePage && (
                 <div className='ml-auto'>
                     <Link to='/CartDetails'>
                         <ButtonContainer>
@@ -42,7 +44,7 @@ const Navbar = ({ onLogout }) => {
                             </span>
                         </ButtonContainer>
                     </Link>
-                    <Link to='/AddProd'>
+                    <Link to={{pathname:'/AddProd'}} state={{ r_id: userId }}>                    
                         <ButtonContainer>
                             <span className="mr-2" style={{ color: "white", fontFamily: "Georgia, serif", fontSize: 18 }}>
                                 <i style={{ marginRight: 10, fontSize: 20 }} className="fas fa-user" />

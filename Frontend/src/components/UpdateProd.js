@@ -15,7 +15,6 @@ const UpdateProd = () => {
 
    let loadProducts = async () => {
     const result = await axios.get(`http://127.0.0.1:8000/api/product/${productId}/`);
-    
     console.log(result.data.name);
     setImage(result.data.image);
     setName(result.data.name);

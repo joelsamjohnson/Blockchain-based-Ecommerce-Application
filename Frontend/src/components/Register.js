@@ -21,9 +21,12 @@ function Register() {
 
         try {
             const response = await axios.post('http://localhost:8000/api/register/', {
+                first_name: fname,  
+                last_name: lname, 
                 email: email,
                 username: username,
                 password: password,
+                company_name: company,
             });
             console.log(response.data);
             if (response.status === 200 || response.status === 201) {

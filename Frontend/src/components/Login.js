@@ -19,7 +19,7 @@ const Login=({ onLogin }) => {
           console.log("User ID", response.data.user_id);
           localStorage.setItem('user_id', response.data.user_id); // Store the user ID in local storage
           onLogin(true);
-          navigate('/'); // Navigate to the home page or dashboard after login
+          navigate('/ProductView'); // Navigate to the home page or dashboard after login
         } else {
           console.error("Login failed:", response.data.error);
         }

@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Web3 from 'web3';
 import contractABI from "../Contract.json";
 import Modal from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button';
 
-const NFTDetails = (props) => {
-
+const NFTDetails = () => {
+  const location= useLocation();
   const [Products, setProducts] = useState([]);
   const [isRepair, setRepair] = useState(false);
   const [isCheck, setCheck] = useState(false);
@@ -17,7 +17,9 @@ const NFTDetails = (props) => {
   const navigate = useNavigate();
   const [trans,settrans]=useState(false);
   const [pro,setPro]=useState(true);
-  const date1=new Date(props.location.state.expiry_date);
+  const { token_id: token_id, product_id:product_id, 
+    acc_address:acc_address, expiry_date:expiry_date,diff:diff} = location.state;
+  const date1=new Date(expiry_date);
   const date2=new Date();
   const [isShow, invokeModal] = React.useState(false)
 
@@ -27,7 +29,7 @@ const NFTDetails = (props) => {
   
 
   const getSingleProducts = async () => {
-    const  { data } = await axios.get(`http://127.0.0.1:8000/api/product/${props.location.state.product_id}/`)
+    const  { data } = await axios.get(`http://127.0.0.1:8000/api/product/${product_id}/`)
     console.log(data);
     setProducts(data);
   }
@@ -75,7 +77,7 @@ const NFTDetails = (props) => {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
          
     console.log(accounts[0]);
-    if(accounts[0]==props.location.state.acc_address && date1>date2){
+    if(accounts[0]==acc_address && date1>date2){
       setRepair(true);
       console.log("repair initiated");
     }else{
@@ -92,12 +94,12 @@ const NFTDetails = (props) => {
     const contractAddress = "0x74EE8f104FCABE391C8d9d07A14b7bc1A650bf54"
     const contractInstance = new web3.eth.Contract(contractABI,contractAddress);
     const transaction = {
-          from: props.location.state.acc_address,
+          from: acc_address,
           to: "0x74EE8f104FCABE391C8d9d07A14b7bc1A650bf54", //contractAddress of the concerned token (same in data below)
           data: contractInstance.methods.transfer(
-            props.location.state.acc_address,
+            acc_address,
             acc,
-            props.location.state.token_id
+            token_id
           ).encodeABI()
           //value given by user should be multiplied by 1000
         };
@@ -123,10 +125,10 @@ const NFTDetails = (props) => {
     const contractAddress = "0x74EE8f104FCABE391C8d9d07A14b7bc1A650bf54"
     const contractInstance = new web3.eth.Contract(contractABI,contractAddress);
     const transaction = {
-          from: props.location.state.acc_address,
+          from: acc_address,
           to: "0x74EE8f104FCABE391C8d9d07A14b7bc1A650bf54", //contractAddress of the concerned token (same in data below)
           data: contractInstance.methods.applyExpiryDiscount(
-            props.location.state.token_id
+            token_id
           ).encodeABI()
           //value given by user should be multiplied by 1000
         };
@@ -149,7 +151,7 @@ const NFTDetails = (props) => {
   const updateWarranty=async ()=>{
     await axios({
       method: 'PUT',
-      url: `http://127.0.0.1:8000/api/warranty/${props.location.state.token_id}/`,
+      url: `http://127.0.0.1:8000/api/warranty/${token_id}/`,
      
   }).then(response => {
       alert('Surprise !! Your Warranty duration is extended !!')
@@ -161,7 +163,7 @@ const NFTDetails = (props) => {
   const updateRedeem=async ()=>{
     await axios({
       method: 'PUT',
-      url: `http://127.0.0.1:8000/api/redeem/${props.location.state.token_id}/`,
+      url: `http://127.0.0.1:8000/api/redeem/${token_id}/`,
      
   }).then(response => {
      
@@ -172,11 +174,11 @@ const NFTDetails = (props) => {
   }
 
   const updateTransfer = async (username,acc) => {
-    console.log(username,acc,props.location.state.token_id)
+    console.log(username,acc,token_id)
       
     await axios({
       method: 'PUT',
-      url: `http://127.0.0.1:8000/api/nft/${props.location.state.token_id}/${username}/${acc}/update/`,
+      url: `http://127.0.0.1:8000/api/nft/${token_id}/${username}/${acc}/update/`,
      
   }).then(response => {
       alert('Transfer Completed!!')
@@ -189,7 +191,7 @@ const NFTDetails = (props) => {
 
   useEffect(() => {
     getSingleProducts();
-  },[])
+  },[product_id])
 
     return (
       <div class="e-card e-card-horizontal" style={{marginLeft:30,marginTop:30,marginBottom:30,marginRight:30}}>
@@ -200,10 +202,10 @@ const NFTDetails = (props) => {
           <div class="col-md-8">
           <div class="card-body">
           <h5 style={{fontFamily: "Georgia, serif",fontSize:30 }} class="card-title">{Products.name}</h5>
-          <p style={{fontFamily: "arial"}}>User account address :{props.location.state.acc_address}</p>
-                <p style={{fontFamily: "arial"}}>Token Id: {props.location.state.token_id}</p>
-                <p style={{fontFamily: "arial"}}>Expiry Date: {props.location.state.expiry_date}</p>
-                <p style={{fontFamily: "arial"}}>Warranty time remaining : {props.location.state.diff}</p>
+          <p style={{fontFamily: "arial"}}>User account address :{acc_address}</p>
+                <p style={{fontFamily: "arial"}}>Token Id: {token_id}</p>
+                <p style={{fontFamily: "arial"}}>Expiry Date: {expiry_date}</p>
+                <p style={{fontFamily: "arial"}}>Warranty time remaining : {diff}</p>
                 <p style={{fontFamily: "arial"}}>{Products.description}</p>
                 <p style={{fontFamily: "arial"}}>Price: Rs.{Products.price}</p>
           <p class="card-text" style={{fontFamily: "arial"}}><small class="text-muted">In case of any defect within the warranty period apply for 
@@ -270,9 +272,9 @@ const NFTDetails = (props) => {
                      <button style={{fontFamily: "arial",fontSize:14}}  variant="outlined" 
                      className="btn btn-outline-primary mr-2"
                     onClick={() => transferHistory()}>See transfer History</button>{' '}
-                    <button style={{fontFamily: "arial",fontSize:14}}  variant="outlined"  disabled = {props.location.state.redeem? false:true}
+                    <button style={{fontFamily: "arial",fontSize:14}}  variant="outlined"  disabled = {redeem? false:true}
                        className="btn btn-outline-success mr-2" onClick={() => redeem()}>
-                      {props.location.state.redeem?(
+                      {redeem?(
                         <p className="text-capitalize mb-0">
                           Redeem Gift</p>
                         ):(

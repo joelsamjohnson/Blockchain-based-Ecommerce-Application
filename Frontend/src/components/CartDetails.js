@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Title from './Title';
 import Divider from "@material-ui/core/Divider";
 
-function CartDetails(props) {
+function CartDetails() {
     const navigate = useNavigate();
     const [Product, setProduct] = useState([])
     const [Total, setTotal] = useState([])
     const userId = localStorage.getItem('user_id');
-
+   
 
     const addOrder = async () => {
         await axios({
@@ -35,11 +35,13 @@ function CartDetails(props) {
     }
     const deleteItem = async (id) => {
         await axios.delete(`http://127.0.0.1:8000/api/cart/${userId}/${id}/delete/`)
-        navigate(0);
+        fetchProduct();
+        totalProduct();
     }
     const clearCart = async (id) => {
         await axios.delete(`http://127.0.0.1:8000/api/cart/${userId}/clear/`)
-        navigate(0);
+        fetchProduct();
+        totalProduct();
     }
       
     const incCart = async (id) => {
@@ -49,7 +51,8 @@ function CartDetails(props) {
             
         }).then(response => {
             console.log(response.data);
-            navigate(0);
+            fetchProduct();
+            totalProduct();
         })
     }
     const decCart = async (id) => {
@@ -59,7 +62,8 @@ function CartDetails(props) {
             
         }).then(response => {
             console.log(response.data);
-            navigate(0);
+            fetchProduct();
+            totalProduct();
         })
     }
 

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 from home.models import Account
 
+
 class User(models.Model):
     User_type = (
         ('R', 'Retailer'),

@@ -68,7 +68,7 @@ def product_list(request):
 def AddProduct(request, id):
     data = request.data.copy()
     data['user_id'] = id
-    serializer = ProductSerializer(data=request.data)
+    serializer = ProductSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -122,7 +122,6 @@ def cart_list(request, id):
     serializer = CartSerializer(cart, many=True)
     ls = []
     total = 0
-    print(serializer.data)
     for i in serializer.data:
         dict1 = {}
         product = Product.objects.get(id=i['product_id'])
@@ -148,7 +147,6 @@ def total_cart_price(request, id):
     serializer = CartSerializer(cart, many=True)
     ls = []
     total = 0
-    print(serializer.data)
     for i in serializer.data:
         dict1 = {}
         product = Product.objects.get(id=i['product_id'])
@@ -215,14 +213,17 @@ def update_quant_and_total(request, uid, pid):
             dict1 = {}
             cart1 = Cart.objects.get(id=i['id'])
             product = Product.objects.get(id=i['product_id'])
+            print("joyal",i['quantity'],"joyal")
             dict1['quantity'] = i['quantity'] + 1
+            print(dict1['quantity'] )
             dict1['total_amount'] = i['total_amount'] + product.price
             ls.append(dict1)
-    request.data['user_id'] = uid
-    request.data['product_id'] = pid
-    request.data['quantity'] = ls[0]['quantity']
-    request.data['total_amount'] = ls[0]['total_amount']
-    serializer = CartSerializer(cart1, data=request.data)
+    data = request.data.copy()
+    data['user_id'] = uid
+    data['product_id'] = pid
+    data['quantity'] = ls[0]['quantity']
+    data['total_amount'] = ls[0]['total_amount']
+    serializer = CartSerializer(cart1, data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)

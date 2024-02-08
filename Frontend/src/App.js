@@ -15,6 +15,7 @@ import PlaceOrder from './components/PlaceOrder';
 import PaymentScreen from './components/PaymentScreen';
 import NFTDetails from './components/NFTDetails';
 import Login from './components/Login';
+import WelcomePage from './components/welcomepage/WelcomePage';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('access_token') ? true : false);
@@ -26,13 +27,15 @@ const App = () => {
   }, []); 
 
   const handleLogin = (success) => {
-    console.log("Login successful:", success); 
-    setIsLoggedIn(success);
+    if (success) {
+      localStorage.setItem('isLoggedIn',true);
+      setIsLoggedIn(true);
+    }
+    
   };
 
   const onLogout = () => {
-    localStorage.removeItem('access_token'); // Clear the token from localStorage
-    console.log('User logged out');
+    localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false); // Update the logged-in state
 };
   return (
@@ -41,7 +44,7 @@ const App = () => {
         <Navbar onLogout={onLogout} />
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/" element={isLoggedIn ? <ProductView /> : <Navigate to="/login" replace />} />
+          <Route path="/ProductView" element={isLoggedIn ? <ProductView /> : <Navigate to="/login" replace />} />
           <Route path="/AddProd" element={isLoggedIn ? <AddProd /> : <Navigate to="/login" replace />} />
           <Route path="/DeleteProd" element={isLoggedIn ? <DeleteProd /> : <Navigate to="/login" replace />} />
           <Route path="/UpdateProd" element={isLoggedIn ? <UpdateProd /> : <Navigate to="/login" replace />} />
@@ -51,6 +54,7 @@ const App = () => {
           <Route path="/PaymentScreen" element={isLoggedIn ? <PaymentScreen /> : <Navigate to="/login" replace />} />
           <Route path="/NFTDetails" element={isLoggedIn ? <NFTDetails /> : <Navigate to="/login" replace />} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/" element={<WelcomePage/>}/>
           <Route path="*" element={<Default />} />
         </Routes>
       </React.Fragment>

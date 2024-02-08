@@ -77,11 +77,11 @@ const UserProfile = () => {
                           <Carousel.Item  key={nft.id} style={{fontFamily:"arial"}}>
                             <Link to={{
                               pathname: '/NFTDetails',
-                              state: {token_id: nft.token_id,
-                              product_id:nft.product_id,
-                              acc_address:nft.acc_address,
-                              expiry_date:nft.expiry_date,diff:nft.diff,
-                              redeem:nft.redeem}}}>
+                              }} state= {{token_id: nft.token_id,
+                                product_id:nft.product_id,
+                                acc_address:nft.acc_address,
+                                expiry_date:nft.expiry_date,diff:nft.diff,
+                                redeem:nft.redeem}}>
                               <img className="d-block w-100"
                                 src={'http://127.0.0.1:8000' + nft.image} alt="nft"/></Link>
                               <Carousel.Caption>

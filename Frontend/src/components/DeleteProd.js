@@ -26,7 +26,7 @@ const DeleteProd = () => {
 
   const deleteUser = async (id) => {
     await axios.delete(`http://127.0.0.1:8000/api/product/${id}/delete/`);
-    navigate("/");
+    navigate("/ProductView");
   };
   
   
