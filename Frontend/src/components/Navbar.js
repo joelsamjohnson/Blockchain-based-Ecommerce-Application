@@ -24,7 +24,11 @@ const Navbar = ({ onLogout }) => {
                     <h1 style={{ fontSize: 30, fontFamily: "Georgia, serif" }}>Trend-Warehouse</h1>
                 </Link>
             </div>
-
+            <div>
+                <Link to="/" className="nav-link">
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                </Link>
+            </div>
             {/* Render the rest of the navbar only if it's not the login page */}
             {!isLoginPage && !isWelcomePage && (
                 <div className='ml-auto'>

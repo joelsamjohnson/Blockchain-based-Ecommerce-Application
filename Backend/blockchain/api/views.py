@@ -237,12 +237,14 @@ def dec_quant_and_total(request, uid, pid):
     ls = []
     for i in serializer.data:
         if i['product_id'] == pid:
-            dict1 = {}
-            cart1 = Cart.objects.get(id=i['id'])
-            product = Product.objects.get(id=i['product_id'])
-            dict1['quantity'] = i['quantity'] - 1
-            dict1['total_amount'] = i['total_amount'] - product.price
-            ls.append(dict1)
+            if i['quantity'] > 1:
+                dict1 = {}
+                cart1 = Cart.objects.get(id=i['id'])
+                product = Product.objects.get(id=i['product_id'])
+                dict1['quantity'] = i['quantity'] - 1
+                dict1['total_amount'] = i['total_amount'] - product.price
+                ls.append(dict1)
+
     request.data['user_id'] = uid
     request.data['product_id'] = pid
     request.data['quantity'] = ls[0]['quantity']
