@@ -363,7 +363,7 @@ def pinata_file_upload(request, uid, id):
             product = Product.objects.filter(pk=i['product_id'])
             serializer = ProductSerializer(product, many=True)
             img_name = serializer.data[0]['image'].split('/')[-1]
-            file_path = "C:/Users/saraj/PycharmProjects/Blockchain-based-Ecommerce-Application/Backend/blockchain/" + \
+            file_path = "C:/Users/user/OneDrive/Desktop/Blockchain-based-Ecommerce-Application/Backend/blockchain" + \
                         serializer.data[0]['image']
             url = "https://api.pinata.cloud/pinning/pinFileToIPFS"
             payload = {}
@@ -375,11 +375,9 @@ def pinata_file_upload(request, uid, id):
             }
 
             response = requests.request("POST", url, headers=headers, data=payload, files=files)
-            response_data = response.json()
-            print("File uploaded, CID:",response_data["IpfsHash"])
             hashval = response.text.split('"')[3]
             url = "https://api.pinata.cloud/pinning/pinJSONToIPFS"
-            img_url = "https://harlequin-added-guppy-784.mypinata.cloud/ipfs/" + hashval + "?pinataGatewayToken=OPsVxCftuhV9b61GOMWUMAW-3u5fD1_L974b-JHR73rQIUOSz7_SXl2KN_GOpBJH"
+            img_url = "https://amethyst-realistic-camel-859.mypinata.cloud/ipfs/" + hashval + "?pinataGatewayToken=MgL8ssK-torTK_vfvilq04TZ6BpK1cdpQFCc6fRLD-K8dQ4g8f2SplukNJ-sGXrJ"
             Product_name = serializer.data[0]['name']
             time = serializer.data[0]['warranty_period'] * 31556952
             x = datetime.now() + timedelta(seconds=time)
@@ -402,7 +400,7 @@ def pinata_file_upload(request, uid, id):
 
             response = requests.request("POST", url, headers=headers, data=payload)
             hashval2 = response.text.split('"')[3]
-            json_url = "https://harlequin-added-guppy-784.mypinata.cloud/ipfs/" + hashval2 + "?pinataGatewayToken=OPsVxCftuhV9b61GOMWUMAW-3u5fD1_L974b-JHR73rQIUOSz7_SXl2KN_GOpBJH"
+            json_url = "https://amethyst-realistic-camel-859.mypinata.cloud/ipfs/" + hashval2 + "?pinataGatewayToken=MgL8ssK-torTK_vfvilq04TZ6BpK1cdpQFCc6fRLD-K8dQ4g8f2SplukNJ-sGXrJ"
             w3 = Web3(HTTPProvider('https://eth-sepolia.g.alchemy.com/v2/GtRs0mmRk7tpkqbRpthhc5HGQAi8wDGC'))
             w3.middleware_onion.inject(geth_poa_middleware, layer=0)
             abi = '''[
