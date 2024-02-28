@@ -10,6 +10,7 @@ const Navbar = ({ onLogout }) => {
     // Check if the current page is the login page
     const isLoginPage = location.pathname === '/login';
     const isWelcomePage = location.pathname === '/';
+    const isRegisterPage = location.pathname === '/register';
     const handleLogoutClick = () => {
         onLogout(); // Call the logout function passed as a prop
     };
@@ -30,7 +31,7 @@ const Navbar = ({ onLogout }) => {
                 </Link>
             </div>
             {/* Render the rest of the navbar only if it's not the login page */}
-            {!isLoginPage && !isWelcomePage && (
+            {!isLoginPage && !isWelcomePage && !isRegisterPage &&(
                 <div className='ml-auto'>
                     <Link to='/CartDetails'>
                         <ButtonContainer>

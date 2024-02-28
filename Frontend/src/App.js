@@ -16,6 +16,8 @@ import PaymentScreen from './components/PaymentScreen';
 import NFTDetails from './components/NFTDetails';
 import Login from './components/Login';
 import WelcomePage from './components/welcomepage/WelcomePage';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('access_token') ? true : false);
@@ -44,6 +46,7 @@ const App = () => {
         <Navbar onLogout={onLogout} />
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/AdminDashboard" element={<AdminDashboard/>} />
           <Route path="/ProductView" element={isLoggedIn ? <ProductView /> : <Navigate to="/login" replace />} />
           <Route path="/AddProd" element={isLoggedIn ? <AddProd /> : <Navigate to="/login" replace />} />
           <Route path="/DeleteProd" element={isLoggedIn ? <DeleteProd /> : <Navigate to="/login" replace />} />

@@ -28,6 +28,7 @@ const Login=({ onLogin }) => {
       }
     };
   return (
+    
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="login-form">
@@ -48,6 +49,7 @@ const Login=({ onLogin }) => {
       <div>
         New user? <Link to="/register">Register here</Link>
       </div>
+      
     </div>
     
   );

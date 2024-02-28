@@ -43,21 +43,23 @@ body{
 .login-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   height: 100vh;
   padding-top: 60px; /* Space from the top */
+  flex-wrap: wrap;
 }
 
 .login-form {
-  display: flex;
+  flex: 1;
+  margin: 10px;
   flex-direction: column;
   align-items: center;
   background: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 300px; /* Adjust width as needed */
+  min-width: 200px; /* Adjust width as needed */
 }
 
 .login-input {

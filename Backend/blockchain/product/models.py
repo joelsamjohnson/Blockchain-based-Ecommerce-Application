@@ -1,10 +1,10 @@
 from django.db import models
-from user.models import User, Product, Order_Items, Payment_Details, Order_Details
+from user.models import Consumer, Product, Order_Items, Payment_Details, Order_Details
 
 
 class Cart(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(Consumer, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
     total_amount = models.FloatField(default=0)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -14,7 +14,7 @@ class Cart(models.Model):
 
 
 class Shipping_Address(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    user_id = models.ForeignKey(Consumer, on_delete=models.CASCADE, default=0)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
@@ -37,7 +37,7 @@ class Track_Repairs(models.Model):
 
 class NFT_Details(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE, default=0)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    user_id = models.ForeignKey(Consumer, on_delete=models.CASCADE, default=0)
     token_url = models.CharField(max_length=200, default='')
     expiry_date = models.DateTimeField(default='')
     token_id = models.IntegerField(unique=True, default=0)

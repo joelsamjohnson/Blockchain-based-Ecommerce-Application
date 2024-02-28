@@ -1,32 +1,75 @@
 from rest_framework import serializers
-from .models import User, Product, Order_Items, Payment_Details, Order_Details
-
+from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Consumer
         fields = '__all__'
 
 
-class RegisterSerializer(serializers.ModelSerializer):
+class ManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('username', 'email', 'password', 'first_name', 'last_name', 'company_name')
-        extra_kwargs = {'password':{'write_only':True}}
+        model = Manufacturer
+        fields = ('name','place', 'ethereum_address', 'email')
 
     def create(self, validated_data):
-        user = User(
-            username=validated_data['username'],
+        user = Manufacturer(
+            name=validated_data['name'],
+            place=validated_data['place'],
+            ethereum_address=validated_data['ethereum_address'],
             email=validated_data['email'],
-            first_name=validated_data.get('first_name', ''),
-            last_name=validated_data.get('last_name', ''),
-            company_name=validated_data.get('company_name', ''),
 
         )
-        user.set_password(validated_data['password'])
         user.save()
         return user
 
+class DistributorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Distributor
+        fields = ('name','place', 'ethereum_address', 'email')
+
+    def create(self, validated_data):
+        user = Distributor(
+            name=validated_data['name'],
+            place=validated_data['place'],
+            ethereum_address=validated_data['ethereum_address'],
+            email=validated_data['email'],
+
+        )
+        user.save()
+        return user
+
+class RetailerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Retailer
+        fields = ('name','place', 'ethereum_address', 'email')
+
+    def create(self, validated_data):
+        user = Retailer(
+            name=validated_data['name'],
+            place=validated_data['place'],
+            ethereum_address=validated_data['ethereum_address'],
+            email=validated_data['email'],
+
+        )
+        user.save()
+        return user
+
+class ConsumerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Consumer
+        fields = ('name','place', 'ethereum_address', 'email')
+
+    def create(self, validated_data):
+        user = Consumer(
+            name=validated_data['name'],
+            place=validated_data['place'],
+            ethereum_address=validated_data['ethereum_address'],
+            email=validated_data['email'],
+
+        )
+        user.save()
+        return user                
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

@@ -2,12 +2,10 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from user.serializers import UserSerializer, ProductSerializer, Order_ItemsSerializer, Payment_DetailsSerializer, \
-    Order_DetailsSerializer, RegisterSerializer
-from user.models import User, Product, Order_Items, Payment_Details, Order_Details
-from product.models import Cart, Shipping_Address, Track_Repairs, NFT_Details
-from product.serializer import CartSerializer, Shipping_AddressSerializer, Track_RepairsSerializer, \
-    NFT_DetailsSerializer
+from user.serializers import *
+from user.models import *
+from product.models import *
+from product.serializer import *
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -22,6 +20,7 @@ from dateutil import relativedelta
 from django.core.mail import send_mail
 from django.conf import settings
 import re
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -38,13 +37,37 @@ def login_view(request):
 
 
 class RegisterView(APIView):
-    def post(self, request, format='json'):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request):
+        if request.data['userType']=='M':
+            serializer = ManufacturerSerializer(data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.data['userType']=='D':
+            serializer = DistributorSerializer(data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        elif request.data['userType']=='R':
+            serializer = RetailerSerializer(data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            serializer = ConsumerSerializer(data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)                
+
 
 
 @api_view(['GET'])
@@ -989,9 +1012,8 @@ def valid_nft(request, id):
     serializer = NFT_DetailsSerializer(nft, many=True)
     ls = []
     for i in serializer.data:
-        d = datetime.fromisoformat(i['expiry_date'][:-1]).astimezone(timezone.utc)
-        exp_date = d.strftime('%Y-%m-%d %H:%M:%S.%f')
-        exp_date = datetime.strptime(exp_date, '%Y-%m-%d %H:%M:%S.%f')
+        exp_date = datetime.strptime(i['expiry_date'].replace('T', ' ').rstrip('Z'), '%Y-%m-%d %H:%M:%S.%f')
+        exp_date = exp_date.replace(tzinfo=timezone.utc)
         d1 = datetime.strptime(str(datetime.now().date()), "%Y-%m-%d")
         d2 = datetime.strptime(str(exp_date.date()), "%Y-%m-%d")
         z = relativedelta.relativedelta(d2, d1)
