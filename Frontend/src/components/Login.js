@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login=({ onLogin }) => {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     
@@ -12,7 +12,7 @@ const Login=({ onLogin }) => {
       event.preventDefault();
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/login/', {
-          username, password
+          name, password
         }); 
         if (response.status === 200) {
           console.log("Login successful:", response.data);
@@ -33,9 +33,9 @@ const Login=({ onLogin }) => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="login-form">
         <input className="login-input"
-          type="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           placeholder="Username"
         />
         <input className="login-input"

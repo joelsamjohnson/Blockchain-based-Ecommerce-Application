@@ -26,11 +26,10 @@ import re
 @require_http_methods(["POST"])
 def login_view(request):
     data = json.loads(request.body)
-    username = data.get('username')
+    name = data.get('name')
     password = data.get('password')
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(request, name=name, password=password)
     if user is not None:
-        login(request, user)
         return JsonResponse({"message": "Login successful!", "user_id": user.id}, status=200)
     else:
         return JsonResponse({"message": "Invalid username or password."}, status=400)

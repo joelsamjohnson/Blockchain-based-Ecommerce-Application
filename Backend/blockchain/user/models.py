@@ -9,47 +9,54 @@ def default_ethereum_address():
 class Consumer(models.Model):
     email = models.EmailField(max_length=60, unique=True)
     name = models.CharField(max_length=30, unique=True)
+    password = models.CharField(max_length=128, default=None)
     place = models.CharField(max_length=30)
     ethereum_address = models.CharField(max_length=42, unique=True,default=default_ethereum_address)
 
     def __str__(self):
         return self.username
 
-    def set_password(self, raw_password):
-        self.password = raw_password
+
+class Manufacturer(models.Model):
+    email = models.EmailField(max_length=60, unique=True)
+    name = models.CharField(max_length=30, unique=True)
+    password = models.CharField(max_length=128, default=None)
+    place = models.CharField(max_length=30)
+    ethereum_address = models.CharField(max_length=42, unique=True,default=default_ethereum_address)
+
+    def __str__(self):
+        return self.name
 
     def check_password(self, raw_password):
         return raw_password==self.password
 
 
-class Manufacturer(models.Model):
-    email = models.EmailField(max_length=60, unique=True)
-    name = models.CharField(max_length=30, unique=True)
-    place = models.CharField(max_length=30)
-    ethereum_address = models.CharField(max_length=42, unique=True,default=default_ethereum_address)
-
-    def __str__(self):
-        return self.name
-
-
 class Distributor(models.Model):
     email = models.EmailField(max_length=60, unique=True)
     name = models.CharField(max_length=30, unique=True)
+    password = models.CharField(max_length=128, default=None)
     place = models.CharField(max_length=30)
     ethereum_address = models.CharField(max_length=42, unique=True,default=default_ethereum_address)
 
     def __str__(self):
         return self.name
+
+    def check_password(self, raw_password):
+        return raw_password==self.password
 
 
 class Retailer(models.Model):
     email = models.EmailField(max_length=60, unique=True)
     name = models.CharField(max_length=30, unique=True)
+    password = models.CharField(max_length=128, default=None)
     place = models.CharField(max_length=30)
     ethereum_address = models.CharField(max_length=42, unique=True,default=default_ethereum_address)
 
     def __str__(self):
         return self.name
+
+    def check_password(self, raw_password):
+        return raw_password==self.password
 
 
 def get_product_image_filepath(self, filename):

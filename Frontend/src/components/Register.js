@@ -15,11 +15,11 @@ function Register() {
 
 
     const handleSubmit = async (event) => {
-        // event.preventDefault();
-        // if (password !== confirmPassword) {
-        //     alert('Passwords do not match!');
-        //     return;
-        // }
+        event.preventDefault();
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
 
 
         try {
@@ -30,6 +30,8 @@ function Register() {
                 email,
                 ethereum_address,
                 userType,
+                password,
+                confirmPassword
             });
             console.log(response.data);
             if (response.status) {
@@ -73,14 +75,14 @@ function Register() {
                     <label>Ethereum Address:</label>
                     <input type="text" value={ethereum_address} onChange={(e) => setEthereumaddress(e.target.value)} required className='login-input' />
                 </div>
-                {/* <div>
+                <div>
                     <label>Password:</label>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className='login-input' />
                 </div>
                 <div>
                     <label>Confirm Password:</label>
                     <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className='login-input' />
-                </div> */}
+                </div>
                 <button type="submit" className='login-button'>Register</button>
             </form>
         </div>

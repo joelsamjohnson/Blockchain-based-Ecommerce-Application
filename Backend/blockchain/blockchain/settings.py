@@ -141,6 +141,6 @@ EMAIL_USE_SSL = False
 
 
 AUTHENTICATION_BACKENDS = [
-    'user.backends.EmailAuthBackend',
+    'user.backends.MultiModelAuthBackend',
     'django.contrib.auth.backends.ModelBackend',  # Keep this for admin
 ]

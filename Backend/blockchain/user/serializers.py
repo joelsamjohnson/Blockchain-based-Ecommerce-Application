@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ManufacturerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manufacturer
-        fields = ('name','place', 'ethereum_address', 'email')
+        fields = ('name','place', 'ethereum_address', 'email', 'password')
 
     def create(self, validated_data):
         user = Manufacturer(
@@ -18,6 +18,7 @@ class ManufacturerSerializer(serializers.ModelSerializer):
             place=validated_data['place'],
             ethereum_address=validated_data['ethereum_address'],
             email=validated_data['email'],
+            password=validated_data['password']
 
         )
         user.save()
@@ -26,7 +27,7 @@ class ManufacturerSerializer(serializers.ModelSerializer):
 class DistributorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Distributor
-        fields = ('name','place', 'ethereum_address', 'email')
+        fields = ('name','place', 'ethereum_address', 'email', 'password')
 
     def create(self, validated_data):
         user = Distributor(
@@ -34,6 +35,8 @@ class DistributorSerializer(serializers.ModelSerializer):
             place=validated_data['place'],
             ethereum_address=validated_data['ethereum_address'],
             email=validated_data['email'],
+            password=validated_data['password']
+
 
         )
         user.save()
@@ -42,7 +45,7 @@ class DistributorSerializer(serializers.ModelSerializer):
 class RetailerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Retailer
-        fields = ('name','place', 'ethereum_address', 'email')
+        fields = ('name','place', 'ethereum_address', 'email', 'password')
 
     def create(self, validated_data):
         user = Retailer(
@@ -50,6 +53,8 @@ class RetailerSerializer(serializers.ModelSerializer):
             place=validated_data['place'],
             ethereum_address=validated_data['ethereum_address'],
             email=validated_data['email'],
+            password=validated_data['password']
+
 
         )
         user.save()
@@ -58,7 +63,7 @@ class RetailerSerializer(serializers.ModelSerializer):
 class ConsumerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Consumer
-        fields = ('name','place', 'ethereum_address', 'email')
+        fields = ('name','place', 'ethereum_address', 'email', 'password')
 
     def create(self, validated_data):
         user = Consumer(
@@ -66,6 +71,8 @@ class ConsumerSerializer(serializers.ModelSerializer):
             place=validated_data['place'],
             ethereum_address=validated_data['ethereum_address'],
             email=validated_data['email'],
+            password=validated_data['password']
+
 
         )
         user.save()
