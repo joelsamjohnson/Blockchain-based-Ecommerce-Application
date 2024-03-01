@@ -375,8 +375,6 @@ def pinata_file_upload(request, uid, id):
             }
 
             response = requests.request("POST", url, headers=headers, data=payload, files=files)
-            response_data = response.json()
-            print("File uploaded, CID:",response_data["IpfsHash"])
             hashval = response.text.split('"')[3]
             url = "https://api.pinata.cloud/pinning/pinJSONToIPFS"
             img_url = "https://harlequin-added-guppy-784.mypinata.cloud/ipfs/" + hashval + "?pinataGatewayToken=OPsVxCftuhV9b61GOMWUMAW-3u5fD1_L974b-JHR73rQIUOSz7_SXl2KN_GOpBJH"
